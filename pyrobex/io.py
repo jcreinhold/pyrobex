@@ -45,7 +45,7 @@ else:
 class NiftiImage:
     def __init__(self,
                  data: np.ndarray,
-                 header: nib.Nifti1Header = None,
+                 header=None,  # nib.Nifti1Header
                  affine: np.ndarray = None,
                  extra: dict = None):
         self.data = data
