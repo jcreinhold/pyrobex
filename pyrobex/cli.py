@@ -41,7 +41,7 @@ def main(args=None):
     if args is None:
         parser = arg_parser()
         args = parser.parse_args()
-    stripped, mask = robex(args.input_t1_image, args.seed)
+    stripped, mask = robex(args.t1_image, args.seed)
     if args.output_stripped is not None:
         stripped.to_filename(args.output_stripped)
     if args.output_mask is not None:
