@@ -23,14 +23,16 @@ from pyrobex.pyrobex import robex
 def arg_parser():
     desc = "ROBEX v1.2 T1-w Brain Extraction"
     parser = argparse.ArgumentParser(description=desc)
-    parser.add_argument('t1-image', type=str, required=True,
-                        help='path to T1-w image to be skull-stripped')
-    parser.add_argument('-os', '--output-stripped', type=str, default=None,
-                        help='path to output stripped image')
-    parser.add_argument('-om', '--output-mask', type=str, default=None,
-                        help='path to output brain mask')
-    parser.add_argument('-s', '--seed', type=int, default=0,
-                        help='random seed for reproducible results')
+    required = parser.add_argument_group('Required')
+    required.add_argument('t1-image', type=str,
+                          help='path to T1-w image to be skull-stripped')
+    options = parser.add_argument_group('Options')
+    options.add_argument('-os', '--output-stripped', type=str, default=None,
+                         help='path to output stripped image')
+    options.add_argument('-om', '--output-mask', type=str, default=None,
+                         help='path to output brain mask')
+    options.add_argument('-s', '--seed', type=int, default=0,
+                         help='random seed for reproducible results')
     return parser
 
 
