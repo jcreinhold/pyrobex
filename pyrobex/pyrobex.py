@@ -63,9 +63,9 @@ def robex(img: NiftiImage, seed: int = 0) -> NiftiImagePair:
         out = subprocess.run(str_args, capture_output=True)
         if out.returncode != 0:
             msg = f"Nonzero return code {out.returncode}.\n"
-            msg += "ROBEX Output:\n"
-            msg += str(out.stdout)
+            msg += f"ROBEX Output:\n{str(out.stdout)}"
             raise PyRobexError(msg)
+        logger.debug(f"ROBEX Output:\n{str(out.stdout)}")
         stripped = NiftiImage.load(stripped_fn)
         mask = NiftiImage.load(mask_fn)
     return stripped, mask

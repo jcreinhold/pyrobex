@@ -13,10 +13,13 @@ __all__ = [
     'NiftiImagePair',
 ]
 
+import logging
 import os
 from typing import Tuple
 
 import numpy as np
+
+logger = logging.getLogger(__name__)
 
 ants_flag = os.environ.get('USE_ANTSPY')
 if ants_flag is not None:
@@ -27,12 +30,16 @@ else:
 if use_ants:
     try:
         import ants
+        logger.debug('Using antspy as the backend.')
     except (ImportError, ModuleNotFoundError):
         import nibabel as nib
-
+        msg = 'USE_ANTSPY set to true, but could not import antspy.\n'
+        msg += 'Using nibabel as fallback.'
+        logger.warning(msg)
         use_ants = False
 else:
-    import nibabel as nib
+    import nibabel as nib  # noqa
+    logger.debug('Using nibabel as the backend.')
 
 
 class NiftiImage:

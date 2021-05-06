@@ -45,7 +45,8 @@ import pyrobex
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
-    'sphinx.ext.viewcode'
+    'sphinx.ext.viewcode',
+    'sphinxarg.ext',
 ]
 
 # Use google docstring format

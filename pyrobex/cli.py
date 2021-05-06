@@ -15,10 +15,23 @@ Created on: May 6, 2021
 """
 
 import argparse
+import logging
 import sys
 
+from pyrobex.errors import PyRobexError
 from pyrobex.io import NiftiImage
 from pyrobex.pyrobex import robex
+
+
+def setup_log(verbosity: int):
+    """ get logger with appropriate logging level and message """
+    if verbosity == 1:
+        level = logging.getLevelName('INFO')
+    elif verbosity >= 2:
+        level = logging.getLevelName('DEBUG')
+    else:
+        level = logging.getLevelName('WARNING')
+    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=level)
 
 
 def arg_parser():
@@ -34,7 +47,16 @@ def arg_parser():
                          help='path to output brain mask')
     options.add_argument('-s', '--seed', type=int, default=0,
                          help='random seed for reproducible results')
+    options.add_argument('-v', '--verbosity', action="count", default=0,
+                         help="increase output verbosity (e.g., -vv is more than -v)")
     return parser
+
+
+def check_args(args):
+    if args.output_stripped is None and args.output_mask is None:
+        msg = '--output-stripped and/or --output-mask should be specified,\n'
+        msg += 'otherwise this script has no output.\nAborting.'
+        raise PyRobexError(msg)
 
 
 def main(args=None):
@@ -42,12 +64,19 @@ def main(args=None):
     if args is None:
         parser = arg_parser()
         args = parser.parse_args()
+    setup_log(args.verbosity)
+    logger = logging.getLogger(__name__)
+    check_args(args)
     image = NiftiImage.load(args.t1_image)
     stripped, mask = robex(image, args.seed)
     if args.output_stripped is not None:
         stripped.to_filename(args.output_stripped)
+        msg = f'Output skull-stripped image saved to: {args.output_stripped}.'
+        logger.debug(msg)
     if args.output_mask is not None:
         mask.to_filename(args.output_mask)
+        msg = f'Output mask image saved to: {args.output_mask}'
+        logger.debug(msg)
     return 0
 
 
