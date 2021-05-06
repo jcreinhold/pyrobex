@@ -31,7 +31,8 @@ else:
 
 def load(filename: str) -> NiftiImage:
     if use_ants:
-        image = backend.image_read(filename)
+        image = backend.image_read(filename).clone(pixeltype='float32')
     else:
         image = backend.load(filename)
+        _ = image.get_fdata()  # load data into memory cache
     return image
