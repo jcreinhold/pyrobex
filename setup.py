@@ -36,14 +36,14 @@ setup(
     description="python bindings for ROBEX brain extraction",
     entry_points={
         'console_scripts': [
-            'pyrobex=pyrobex.cli:main',
+            'robex=pyrobex.cli:main',
         ],
     },
     install_requires=requirements,
     license="BSD license",
     long_description=readme + '\n\n' + history,
     include_package_data=True,
-    keywords='pyrobex',
+    keywords='robex, brain extraction, mri',
     name='pyrobex',
     packages=find_packages(include=['pyrobex', 'pyrobex.*']),
     setup_requires=setup_requirements,
