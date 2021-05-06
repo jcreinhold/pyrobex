@@ -13,8 +13,9 @@ pyrobex
         :alt: Documentation Status
 
 
-Python bindings for ROBEX brain extraction with a NIfTI file.
+Python bindings for ROBEX brain extraction.
 
+This package comes with ROBEX v1.2 for Linux. Windows is not currently supported.
 
 * Free software: BSD license
 * Documentation: https://pyrobex.readthedocs.io.

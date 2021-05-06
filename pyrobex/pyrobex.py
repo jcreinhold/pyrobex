@@ -19,9 +19,8 @@ from pathlib import Path
 import subprocess
 import tempfile
 
-import nibabel as nib
-
 from pyrobex.errors import PyRobexError
+from pyrobex.io import load
 from pyrobex.types import NiftiImage, NiftiImagePair
 
 logger = logging.getLogger(__name__)
@@ -68,6 +67,6 @@ def robex(img: NiftiImage, seed: int = 0) -> NiftiImagePair:
             msg += "ROBEX Output:\n"
             msg += str(out.stdout)
             raise PyRobexError(msg)
-        stripped = nib.load(stripped_fn)
-        mask = nib.load(mask_fn)
+        stripped = load(stripped_fn)
+        mask = load(mask_fn)
     return stripped, mask
