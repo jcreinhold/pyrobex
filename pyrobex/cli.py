@@ -18,10 +18,6 @@ import argparse
 import logging
 import sys
 
-from pyrobex.errors import PyRobexError
-from pyrobex.io import NiftiImage
-from pyrobex.pyrobex import robex
-
 
 def setup_log(verbosity: int):
     """ get logger with appropriate logging level and message """
@@ -56,6 +52,7 @@ def check_args(args):
     if args.output_stripped is None and args.output_mask is None:
         msg = '--output-stripped and/or --output-mask should be specified,\n'
         msg += 'otherwise this script has no output.\nAborting.'
+        from pyrobex.errors import PyRobexError
         raise PyRobexError(msg)
 
 
@@ -66,17 +63,20 @@ def main(args=None):
         args = parser.parse_args()
     setup_log(args.verbosity)
     logger = logging.getLogger(__name__)
+    # import pyrobex here for logging backend
+    from pyrobex.io import NiftiImage
+    from pyrobex.pyrobex import robex
     check_args(args)
     image = NiftiImage.load(args.t1_image)
     stripped, mask = robex(image, args.seed)
     if args.output_stripped is not None:
         stripped.to_filename(args.output_stripped)
         msg = f'Output skull-stripped image saved to: {args.output_stripped}.'
-        logger.debug(msg)
+        logger.info(msg)
     if args.output_mask is not None:
         mask.to_filename(args.output_mask)
         msg = f'Output mask image saved to: {args.output_mask}'
-        logger.debug(msg)
+        logger.info(msg)
     return 0
 
 

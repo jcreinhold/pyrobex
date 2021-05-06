@@ -30,7 +30,7 @@ else:
 if use_ants:
     try:
         import ants
-        logger.debug('Using antspy as the backend.')
+        logger.info('Using antspy as the backend.')
     except (ImportError, ModuleNotFoundError):
         import nibabel as nib
         msg = 'USE_ANTSPY set to true, but could not import antspy.\n'
@@ -39,7 +39,7 @@ if use_ants:
         use_ants = False
 else:
     import nibabel as nib  # noqa
-    logger.debug('Using nibabel as the backend.')
+    logger.info('Using nibabel as the backend.')
 
 
 class NiftiImage:
@@ -67,8 +67,11 @@ class NiftiImage:
             return cls(data, header, affine, extra)
 
     def to_filename(self, filename: str):
-        img = nib.Nifti1Image(self.data, self.affine, self.header, self.extra)
+        img = self.to_nibabel()
         img.to_filename(filename)
+
+    def to_nibabel(self):
+        return nib.Nifti1Image(self.data, self.affine, self.header, self.extra)
 
 
 NiftiImagePair = Tuple[NiftiImage, NiftiImage]
