@@ -7,13 +7,13 @@ import os
 import nibabel as nib
 import pytest
 
-from pyrobex.pyrobex import robex, _find_assets
+from pyrobex.pyrobex import robex, _find_robex_dist
 
 
 @pytest.fixture
 def test_image():
-    assets = Path(_find_assets())
-    test_file = assets / "ROBEX" / "ref_vols" / "atlas.nii.gz"
+    robex_dist = Path(_find_robex_dist())
+    test_file = robex_dist / "ref_vols" / "atlas.nii.gz"
     return nib.load(test_file)
 
 

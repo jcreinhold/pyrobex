@@ -25,16 +25,16 @@ from pyrobex.io import NiftiImage, NiftiImagePair
 logger = logging.getLogger(__name__)
 
 
-def _find_assets() -> str:
+def _find_robex_dist() -> str:
     file_path = Path(__file__).resolve()
-    pyrobex_dir = file_path.parents[1]
-    assets = pyrobex_dir / "assets"
-    return str(assets)
+    pyrobex_dir = file_path.parent
+    robex_dist = pyrobex_dir / "ROBEX"
+    return str(robex_dist)
 
 
 def _find_robex_script() -> str:
-    assets = Path(_find_assets())
-    robex_script = assets / "ROBEX" / "runROBEX.sh"
+    robex_dist = Path(_find_robex_dist())
+    robex_script = robex_dist / "runROBEX.sh"
     if not robex_script.is_file():
         raise PyRobexError("Could not find `runROBEX.sh` script.")
     return str(robex_script)

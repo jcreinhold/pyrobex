@@ -2,6 +2,7 @@
 
 """The setup script."""
 
+from glob import glob
 from setuptools import setup, find_packages
 
 with open('README.rst') as readme_file:
@@ -21,6 +22,12 @@ test_requirements = [
     'tox',
     'pytest>=3',
 ]
+
+robex_files = glob('pyrobex/ROBEX/**/*', recursive=True)
+robex_dist = [file.replace('pyrobex/', '') for file in robex_files]
+package_data = {
+    'pyrobex': robex_dist
+}
 
 setup(
     author="Jacob Reinhold",
@@ -45,6 +52,7 @@ setup(
     license="BSD license",
     long_description=readme + '\n\n' + history,
     include_package_data=True,
+    package_data=package_data,
     keywords='robex, brain extraction, mri',
     name='pyrobex',
     packages=find_packages(include=['pyrobex', 'pyrobex.*']),
