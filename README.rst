@@ -13,17 +13,38 @@ pyrobex
         :alt: Documentation Status
 
 
-Python bindings for ROBEX brain extraction.
+Python bindings for `ROBEX`_ brain extraction.
 
 This package comes with ROBEX v1.2 for Linux. Windows is not currently supported.
 
 * Free software: BSD license
 * Documentation: https://pyrobex.readthedocs.io.
 
-
 Install
 -------
 
-.. code-block:: bash
+The easiest way to install the package is with::
+
     pip install pyrobex
 
+Alternatively, you can download the source and run::
+
+    python setup.py install
+
+Basic Usage
+-----------
+
+This package provides a CLI (to the CLI) of ROBEX for convenience and
+testing which can be accessed through, e.g.,::
+
+    robex path/to/t1w_image.nii path/to/stripped.nii path/to/mask.nii
+
+The real use-case of this package is by importing robex and using it within
+another script or neuroimaging pipeline, e.g.,::
+
+    import nibabel as nib
+    from pyrobex import robex
+    image = nib.load('path/to/t1w_image.nii')
+    stripped, mask = robex(image)
+
+.. _ROBEX: https://www.nitrc.org/projects/robex
