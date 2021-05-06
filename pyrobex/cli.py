@@ -17,6 +17,7 @@ Created on: May 6, 2021
 import argparse
 import sys
 
+from pyrobex.io import load
 from pyrobex.pyrobex import robex
 
 
@@ -24,7 +25,7 @@ def arg_parser():
     desc = "ROBEX v1.2 T1-w Brain Extraction"
     parser = argparse.ArgumentParser(description=desc)
     required = parser.add_argument_group('Required')
-    required.add_argument('t1-image', type=str,
+    required.add_argument('t1_image', type=str,
                           help='path to T1-w image to be skull-stripped')
     options = parser.add_argument_group('Options')
     options.add_argument('-os', '--output-stripped', type=str, default=None,
@@ -41,7 +42,8 @@ def main(args=None):
     if args is None:
         parser = arg_parser()
         args = parser.parse_args()
-    stripped, mask = robex(args.t1_image, args.seed)
+    image = load(args.t1_image)
+    stripped, mask = robex(image, args.seed)
     if args.output_stripped is not None:
         stripped.to_filename(args.output_stripped)
     if args.output_mask is not None:
