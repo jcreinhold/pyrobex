@@ -2,7 +2,6 @@
 pyrobex
 =======
 
-
 .. image:: https://img.shields.io/pypi/v/pyrobex.svg
         :target: https://pypi.python.org/pypi/pyrobex
 
@@ -14,24 +13,16 @@ pyrobex
         :alt: Documentation Status
 
 
-
-
-python bindings for ROBEX brain extraction
+Python bindings for ROBEX brain extraction with a NIfTI file.
 
 
 * Free software: BSD license
 * Documentation: https://pyrobex.readthedocs.io.
 
 
-Features
---------
-
-* TODO
-
-Credits
+Install
 -------
 
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
+.. code-block:: bash
+    pip install pyrobex
 
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
