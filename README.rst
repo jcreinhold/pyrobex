@@ -5,8 +5,8 @@ pyrobex
 .. image:: https://img.shields.io/pypi/v/pyrobex.svg
         :target: https://pypi.python.org/pypi/pyrobex
 
-.. image:: https://img.shields.io/travis/jcreinhold/pyrobex.svg
-        :target: https://travis-ci.com/jcreinhold/pyrobex
+.. image:: https://api.travis-ci.com/jcreinhold/pyrobex.svg
+        :target: https://travis-ci.com/github/jcreinhold/pyrobex
 
 .. image:: https://readthedocs.org/projects/pyrobex/badge/?version=latest
         :target: https://pyrobex.readthedocs.io/en/latest/?version=latest
