@@ -7,4 +7,6 @@ tox==3.14.0
 coverage==4.5.4
 Sphinx==1.8.5
 twine==1.14.0
-
+pytest==4.6.5
+nibabel==3.2.1
+numpy==1.20.1

@@ -17,7 +17,7 @@ Created on: May 6, 2021
 import argparse
 import sys
 
-from pyrobex.io import load
+from pyrobex.io import NiftiImage
 from pyrobex.pyrobex import robex
 
 
@@ -42,7 +42,7 @@ def main(args=None):
     if args is None:
         parser = arg_parser()
         args = parser.parse_args()
-    image = load(args.t1_image)
+    image = NiftiImage.load(args.t1_image)
     stripped, mask = robex(image, args.seed)
     if args.output_stripped is not None:
         stripped.to_filename(args.output_stripped)

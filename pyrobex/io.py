@@ -8,9 +8,15 @@ Author: Jacob Reinhold (jcreinhold@gmail.com)
 Created on: May 6, 2021
 """
 
-import os
+__all__ = [
+    'NiftiImage',
+    'NiftiImagePair',
+]
 
-from pyrobex.types import NiftiImage
+import os
+from typing import Tuple
+
+import numpy as np
 
 ants_flag = os.environ.get('USE_ANTSPY')
 if ants_flag is not None:
@@ -20,19 +26,42 @@ else:
 
 if use_ants:
     try:
-        import ants as backend
+        import ants
     except (ImportError, ModuleNotFoundError):
-        import nibabel as backend
+        import nibabel as nib
 
         use_ants = False
 else:
-    import nibabel as backend
+    import nibabel as nib
 
 
-def load(filename: str) -> NiftiImage:
-    if use_ants:
-        image = backend.image_read(filename).clone(pixeltype='float32')
-    else:
-        image = backend.load(filename)
-        _ = image.get_fdata()  # load data into memory cache
-    return image
+class NiftiImage:
+    def __init__(self,
+                 data: np.ndarray,
+                 header: nib.Nifti1Header = None,
+                 affine: np.ndarray = None,
+                 extra: dict = None):
+        self.data = data
+        self.header = header
+        self.affine = affine
+        self.extra = extra
+
+    @classmethod
+    def load(cls, filename: str):
+        if use_ants:
+            image = ants.image_read(str(filename))
+            return image  # if ants, don't need to bother with this class
+        else:
+            image = nib.load(filename)
+            data = np.asarray(image.get_fdata())  # convert memmap to ndarray
+            header = image.header
+            affine = image.affine
+            extra = image.extra
+            return cls(data, header, affine, extra)
+
+    def to_filename(self, filename: str):
+        img = nib.Nifti1Image(self.data, self.affine, self.header, self.extra)
+        img.to_filename(filename)
+
+
+NiftiImagePair = Tuple[NiftiImage, NiftiImage]

@@ -11,13 +11,15 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    'nibabel'
+    'nibabel',
+    'numpy',
 ]
 
 setup_requirements = []
 
 test_requirements = [
-    'tox'
+    'tox',
+    'pytest>=3',
 ]
 
 setup(
