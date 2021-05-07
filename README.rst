@@ -48,3 +48,19 @@ another script or neuroimaging pipeline, e.g.,::
     stripped, mask = robex(image)
 
 .. _ROBEX: https://www.nitrc.org/projects/robex
+
+References
+----------
+
+If you use this package in support of an academic publication, please cite::
+
+    @article{iglesias2011robust,
+      title={Robust brain extraction across datasets and comparison with publicly available methods},
+      author={Iglesias, Juan Eugenio and Liu, Cheng-Yi and Thompson, Paul M and Tu, Zhuowen},
+      journal={IEEE transactions on medical imaging},
+      volume={30},
+      number={9},
+      pages={1617--1634},
+      year={2011},
+      publisher={IEEE}
+    }
