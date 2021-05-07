@@ -37,7 +37,7 @@ Basic Usage
 This package provides a CLI (to the CLI) of ROBEX for convenience and
 testing which can be accessed through, e.g.,::
 
-    robex path/to/t1w_image.nii path/to/stripped.nii path/to/mask.nii
+    robex path/to/t1w_image.nii -os path/to/stripped.nii -om path/to/mask.nii
 
 The real use-case of this package is by importing robex and using it within
 another script or neuroimaging pipeline, e.g.,::
