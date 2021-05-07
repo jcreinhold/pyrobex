@@ -7,7 +7,7 @@ import os
 import nibabel as nib
 import pytest
 
-from pyrobex.pyrobex import robex, _find_robex_dist
+from pyrobex.robex import robex, _find_robex_dist
 
 
 @pytest.fixture

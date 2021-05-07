@@ -43,7 +43,7 @@ The real use-case of this package is by importing robex and using it within
 another script or neuroimaging pipeline, e.g.,::
 
     import nibabel as nib
-    from pyrobex import robex
+    from pyrobex.robex import robex
     image = nib.load('path/to/t1w_image.nii')
     stripped, mask = robex(image)
 

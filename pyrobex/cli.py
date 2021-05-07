@@ -65,7 +65,7 @@ def main(args=None):
     logger = logging.getLogger(__name__)
     # import pyrobex here for logging backend
     from pyrobex.io import NiftiImage
-    from pyrobex.pyrobex import robex
+    from pyrobex.robex import robex
     check_args(args)
     image = NiftiImage.load(args.t1_image)
     stripped, mask = robex(image, args.seed)

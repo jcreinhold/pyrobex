@@ -4,13 +4,13 @@ Usage
 
 To use pyrobex in a project::
 
-    import pyrobex
+    from pyrobex.robex import robex
 
-Then you can do skull-strip NIfTI images from ANTsPy or Nibabel, e.g. ::
+Then you can skull-strip NIfTI images from ANTsPy or Nibabel, e.g. ::
 
     import nibabel as nib
     image = nib.load('path/to/image.nii.gz')
-    stripped, mask = pyrobex.robex(image)
+    stripped, mask = robex(image)
 
 Console script
 ~~~~~~~~~~~~~~
