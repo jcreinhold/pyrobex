@@ -40,14 +40,15 @@ testing which can be accessed through, e.g.,::
     robex path/to/t1w_image.nii -os path/to/stripped.nii -om path/to/mask.nii
 
 The real use-case of this package is by importing robex and using it within
-another script or neuroimaging pipeline, e.g.,::
+another script or neuroimaging pipeline, e.g.,
+
+.. code-block:: python
 
     import nibabel as nib
     from pyrobex.robex import robex
     image = nib.load('path/to/t1w_image.nii')
     stripped, mask = robex(image)
 
-.. _ROBEX: https://www.nitrc.org/projects/robex
 
 References
 ----------
@@ -64,3 +65,5 @@ If you use this package in support of an academic publication, please cite::
       year={2011},
       publisher={IEEE}
     }
+
+.. _ROBEX: https://www.nitrc.org/projects/robex
