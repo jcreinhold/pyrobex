@@ -8,9 +8,7 @@ Author: Jacob Reinhold (jcreinhold@gmail.com)
 Created on: May 5, 2021
 """
 
-__all__ = [
-    'PyRobexError'
-]
+__all__ = ["PyRobexError"]
 
 
 class PyRobexError(Exception):

@@ -9,8 +9,8 @@ Created on: May 6, 2021
 """
 
 __all__ = [
-    'NiftiImage',
-    'NiftiImagePair',
+    "NiftiImage",
+    "NiftiImagePair",
 ]
 
 import logging
@@ -21,33 +21,40 @@ import numpy as np
 
 logger = logging.getLogger(__name__)
 
-ants_flag = os.environ.get('USE_ANTSPY')
+ants_flag = os.environ.get("USE_ANTSPY")
 if ants_flag is not None:
-    use_ants = ants_flag.lower() == 'true'
+    use_ants = ants_flag.lower() == "true"
 else:
     use_ants = False
 
 if use_ants:
     try:
         import ants
-        logger.info('Using antspy as the backend.')
+
+        logger.info("Using antspy as the backend.")
     except (ImportError, ModuleNotFoundError):
         import nibabel as nib
-        msg = 'USE_ANTSPY set to true, but could not import antspy.\n'
-        msg += 'Using nibabel as fallback.'
+
+        msg = "USE_ANTSPY set to true, but could not import antspy.\n"
+        msg += "Using nibabel as fallback."
         logger.warning(msg)
         use_ants = False
 else:
     import nibabel as nib  # noqa
-    logger.info('Using nibabel as the backend.')
+
+    logger.info("Using nibabel as the backend.")
 
 
 class NiftiImage:
-    def __init__(self,
-                 data: np.ndarray,
-                 header=None,  # nib.Nifti1Header
-                 affine: np.ndarray = None,
-                 extra: dict = None):
+    """ Helper class to work with nibabel and antspy images """
+
+    def __init__(
+        self,
+        data: np.ndarray,
+        header=None,  # nib.Nifti1Header
+        affine: np.ndarray = None,
+        extra: dict = None,
+    ):
         self.data = data
         self.header = header
         self.affine = affine
@@ -70,7 +77,7 @@ class NiftiImage:
         img = self.to_nibabel()
         img.to_filename(filename)
 
-    def to_nibabel(self):
+    def to_nibabel(self) -> nib.Nifti1Image:
         return nib.Nifti1Image(self.data, self.affine, self.header, self.extra)
 
 
