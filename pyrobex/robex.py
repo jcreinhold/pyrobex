@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-pyrobex.pyrobex
+pyrobex.robex
 
 main python wrapper functions for robex
 
@@ -25,7 +25,7 @@ from pyrobex.io import NiftiImage, NiftiImagePair
 logger = logging.getLogger(__name__)
 
 
-def _find_robex_dist() -> str:
+def _find_robex_dir() -> str:
     """ finds the ROBEX source code directory """
     file_path = Path(__file__).resolve()
     pyrobex_dir = file_path.parent
@@ -35,7 +35,7 @@ def _find_robex_dist() -> str:
 
 def _find_robex_script() -> str:
     """ finds the ROBEX shell script """
-    robex_dist = Path(_find_robex_dist())
+    robex_dist = Path(_find_robex_dir())
     robex_script = robex_dist / "runROBEX.sh"
     if not robex_script.is_file():
         raise PyRobexError("Could not find `runROBEX.sh` script.")

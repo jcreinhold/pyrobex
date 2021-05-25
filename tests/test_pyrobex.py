@@ -7,13 +7,13 @@ import os
 import nibabel as nib
 import pytest
 
-from pyrobex.robex import robex, _find_robex_dist
+from pyrobex.robex import robex, _find_robex_dir
 from pyrobex.cli import main
 
 
 @pytest.fixture
 def test_file() -> Path:
-    robex_dist = Path(_find_robex_dist())
+    robex_dist = Path(_find_robex_dir())
     test_file = robex_dist / "ref_vols" / "atlas.nii.gz"
     return test_file
 
