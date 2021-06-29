@@ -5,6 +5,9 @@ pyrobex
 .. image:: https://img.shields.io/pypi/v/pyrobex.svg
         :target: https://pypi.python.org/pypi/pyrobex
 
+.. image:: https://anaconda.org/conda-forge/pyrobex/badges/version.svg
+        :target: https://anaconda.org/conda-forge/pyrobex
+        
 .. image:: https://api.travis-ci.com/jcreinhold/pyrobex.svg
         :target: https://travis-ci.com/github/jcreinhold/pyrobex
 
