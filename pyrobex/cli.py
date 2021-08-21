@@ -22,8 +22,8 @@ from typing import List, Optional, Union
 ArgType = Optional[Union[argparse.Namespace, List[str]]]
 
 
-def setup_log(verbosity: int):
-    """ get logger with appropriate logging level and message """
+def setup_log(verbosity: int) -> None:
+    """get logger with appropriate logging level and message"""
     if verbosity == 1:
         level = logging.getLevelName("INFO")
     elif verbosity >= 2:
@@ -75,7 +75,7 @@ def arg_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def check_args(args):
+def check_args(args: argparse.Namespace) -> None:
     if args.output_stripped is None and args.output_mask is None:
         msg = "--output-stripped and/or --output-mask should be specified,\n"
         msg += "otherwise this script has no output.\nAborting."

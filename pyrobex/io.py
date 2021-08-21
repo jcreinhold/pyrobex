@@ -15,7 +15,7 @@ __all__ = [
 
 import logging
 import os
-from typing import Tuple
+from typing import Tuple, Type, TypeVar, Union
 
 import numpy as np
 
@@ -44,14 +44,16 @@ else:
 
     logger.info("Using nibabel as the backend.")
 
+NI = TypeVar("NI", bound="NiftiImage")
+
 
 class NiftiImage:
-    """ Helper class to work with nibabel and antspy images """
+    """Helper class to work with nibabel and antspy images"""
 
     def __init__(
         self,
         data: np.ndarray,
-        header=None,  # nib.Nifti1Header
+        header=None,  # type: nib.Nifti1Header
         affine: np.ndarray = None,
         extra: dict = None,
     ):
@@ -61,10 +63,11 @@ class NiftiImage:
         self.extra = extra
 
     @classmethod
-    def load(cls, filename: str):
+    def load(cls: Type[NI], filename: str) -> Union[NI, "ants.ANTsImage"]:
         if use_ants:
+            # if ants, don't need to bother with this class
             image = ants.image_read(str(filename))
-            return image  # if ants, don't need to bother with this class
+            return image  #
         else:
             image = nib.load(filename)
             data = np.asarray(image.get_fdata())  # convert memmap to ndarray
@@ -73,12 +76,15 @@ class NiftiImage:
             extra = image.extra
             return cls(data, header, affine, extra)
 
-    def to_filename(self, filename: str):
+    def to_filename(self, filename: str) -> None:
         img = self.to_nibabel()
         img.to_filename(filename)
 
     def to_nibabel(self) -> nib.Nifti1Image:
         return nib.Nifti1Image(self.data, self.affine, self.header, self.extra)
+
+    def get_fdata(self) -> np.ndarray:
+        return self.data
 
 
 NiftiImagePair = Tuple[NiftiImage, NiftiImage]

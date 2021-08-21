@@ -15,9 +15,9 @@ __all__ = [
 ]
 
 import logging
-from pathlib import Path
 import subprocess
 import tempfile
+from pathlib import Path
 
 from pyrobex.errors import PyRobexError
 from pyrobex.io import NiftiImage, NiftiImagePair
@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 
 
 def _find_robex_dir() -> str:
-    """ finds the ROBEX source code directory """
+    """finds the ROBEX source code directory"""
     file_path = Path(__file__).resolve()
     pyrobex_dir = file_path.parent
     robex_dist = pyrobex_dir / "ROBEX"
@@ -34,7 +34,7 @@ def _find_robex_dir() -> str:
 
 
 def _find_robex_script() -> str:
-    """ finds the ROBEX shell script """
+    """finds the ROBEX shell script"""
     robex_dist = Path(_find_robex_dir())
     robex_script = robex_dist / "runROBEX.sh"
     if not robex_script.is_file():
@@ -110,12 +110,12 @@ def robex(image: NiftiImage, seed: int = 0) -> NiftiImagePair:
         PyRobexError: when ROBEX is not found or fails
     """
     with tempfile.TemporaryDirectory() as td:
-        td = Path(td)
+        tdp = Path(td)
         robex_script = _find_robex_script()
-        tmp_img_fn = td / "img.nii"
-        image.to_filename(tmp_img_fn)
-        stripped_fn = td / "stripped.nii"
-        mask_fn = td / "mask.nii"
+        tmp_img_fn = tdp / "img.nii"
+        image.to_filename(str(tmp_img_fn))
+        stripped_fn = tdp / "stripped.nii"
+        mask_fn = tdp / "mask.nii"
         args = [robex_script, tmp_img_fn, stripped_fn, mask_fn, seed]
         str_args = list(map(str, args))
         out = subprocess.run(str_args, capture_output=True)
@@ -124,6 +124,6 @@ def robex(image: NiftiImage, seed: int = 0) -> NiftiImagePair:
             msg += f"ROBEX Output:\n{str(out.stdout)}"
             raise PyRobexError(msg)
         logger.debug(f"ROBEX Output:\n{str(out.stdout)}")
-        stripped = NiftiImage.load(stripped_fn)
-        mask = NiftiImage.load(mask_fn)
+        stripped = NiftiImage.load(str(stripped_fn))
+        mask = NiftiImage.load(str(mask_fn))
     return stripped, mask
