@@ -39,6 +39,7 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
     ],
     description="python bindings for ROBEX brain extraction",
     entry_points={"console_scripts": ["robex=pyrobex.cli:main",],},
